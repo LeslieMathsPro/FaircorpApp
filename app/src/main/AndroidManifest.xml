@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.faircorp">
 
     <application
@@ -10,8 +11,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Faircorp">
         <activity
-            android:name=".WindowActivity"
+            android:name=".WindowsActivity"
             android:exported="false" />
+        <activity
+            android:name=".WindowActivity"
+            android:exported="false"
+            tools:ignore="DuplicateActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

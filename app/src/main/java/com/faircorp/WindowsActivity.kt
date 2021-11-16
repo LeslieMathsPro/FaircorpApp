@@ -1,13 +1,16 @@
 package com.faircorp
 
+import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.faircorp.model.OnWindowSelectedListener
 import com.faircorp.model.WindowAdapter
 import com.faircorp.model.WindowService
 
-class WindowsActivity : BasicActivity() {
+class WindowsActivity : BasicActivity(), OnWindowSelectedListener {
 
     val windowService = WindowService() // (1)
 
@@ -16,7 +19,7 @@ class WindowsActivity : BasicActivity() {
         setContentView(R.layout.activity_windows)
 
         val recyclerView = findViewById<RecyclerView>(R.id.list_windows) // (2)
-        val adapter = WindowAdapter() // (3)
+        val adapter = WindowAdapter(this) // (3)
 
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL))
@@ -24,5 +27,10 @@ class WindowsActivity : BasicActivity() {
         recyclerView.adapter = adapter
 
         adapter.update(windowService.findAll()) // (4)
+    }
+
+    override fun onWindowSelected(id: Long) {
+        val intent = Intent(this, WindowActivity::class.java).putExtra(WINDOW_NAME_PARAM, id)
+        startActivity(intent)
     }
 }
